@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "id": "shadowclient",
+  "version": "1.0.0",
+  "name": "SHADOW CLIENT",
+  "description": "Smooth & Clean 1.21.11 PvP, UI, and Utility Client for Fabric (Physical Keyboard & Mouse Edition).",
+  "authors": [
+    "SHADOW CLIENT"
+  ],
+  "license": "MIT",
+  "environment": "client",
+  "entrypoints": {
+    "client": [
+      "com.shadowclient.ShadowClientMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "*",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

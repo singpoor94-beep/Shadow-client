@@ -1,0 +1,392 @@
+{
+  "client_info": {
+    "name": "SHADOW CLIENT",
+    "client_version": "1.0.0",
+    "target_minecraft_version": "1.21.11",
+    "mod_loader": "Fabric",
+    "config_directory": ".minecraft/config/shadowclient/",
+    "commands_prefix": "."
+  },
+  "architecture": {
+    "core_systems": [
+      "Event Bus (Tick, Render2D, Render3D, Packet, KeyInput)",
+      "Module & Category Manager",
+      "Universal Settings Framework (Boolean, Number/Slider, Mode/Dropdown, Color, Keybind)",
+      "Fabric Mixin Hook Layer",
+      "JSON Profile Config Engine (.config save / .config load)"
+    ],
+    "profiles": [
+      "default.json",
+      "legit.json",
+      "cpvp.json",
+      "mace_aerial.json"
+    ]
+  },
+  "ui_and_theme_engine": {
+    "style": "Smooth & Clean Modern UI",
+    "click_gui": {
+      "default_keybind": "RIGHT_SHIFT",
+      "layout_mode": "Dropdown Panels",
+      "available_layouts": [
+        "Dropdown Panels",
+        "Sidebar Dashboard"
+      ],
+      "animation_curve": "Cubic-Bezier Ease-In-Out",
+      "animation_speed_seconds": 0.18,
+      "glassmorphism_blur": true,
+      "corner_radius_px": 8,
+      "tooltip_popups": true
+    },
+    "typography": {
+      "custom_font_renderer": true,
+      "font_style": "Modern Sans",
+      "available_fonts": [
+        "Modern Sans",
+        "Clean Gaming",
+        "Pixel"
+      ],
+      "subpixel_antialiasing": true
+    },
+    "color_theme": {
+      "mode": "Gradient",
+      "available_modes": [
+        "Static",
+        "Rainbow",
+        "Gradient"
+      ],
+      "primary_color_hex": "#7B2CBF",
+      "secondary_color_hex": "#00F5D4"
+    },
+    "hud_editor": {
+      "draggable_mode_command": ".hud",
+      "edge_snapping": true,
+      "widgets": {
+        "watermark_logo": {
+          "enabled": true,
+          "x": 10,
+          "y": 10,
+          "text": "SHADOW CLIENT v1.0 [1.21.11]"
+        },
+        "module_arraylist": {
+          "enabled": true,
+          "x": -10,
+          "y": 10,
+          "sort_by": "Length",
+          "slide_animation": true
+        },
+        "armor_status": {
+          "enabled": true,
+          "x": 10,
+          "y": -50,
+          "show_durability_pct": true
+        },
+        "coords_and_facing": {
+          "enabled": true,
+          "x": 10,
+          "y": -20
+        },
+        "cps_and_keystrokes": {
+          "enabled": true,
+          "x": 10,
+          "y": 50
+        },
+        "fps_and_ram_telemetry": {
+          "enabled": true,
+          "x": 10,
+          "y": 30
+        },
+        "health_and_damage_indicator": {
+          "enabled": true,
+          "show_target_hp": true
+        }
+      }
+    }
+  },
+  "modules": {
+    "COMBAT": {
+      "SmoothAimAssist": {
+        "enabled": true,
+        "keybind": "NONE",
+        "visible_on_arraylist": true,
+        "description": "Humanized single-target lock aim assist with 6-block radius and gear checks.",
+        "settings": {
+          "target_lock_mode": "Single Target Lock",
+          "lock_trigger": "On Attack",
+          "disengage_radius_blocks": 6.0,
+          "weapon_and_armor_check": true,
+          "valid_weapons": [
+            "Sword",
+            "Mace",
+            "Spear",
+            "Axe"
+          ],
+          "require_equipped_armor": true,
+          "fov_threshold_degrees": 40.0,
+          "smoothing_factor": 0.22,
+          "gcd_sensitivity_snapping": true,
+          "multipoint_hitbox_drift": true
+        }
+      },
+      "ElytraMaceDive": {
+        "enabled": true,
+        "keybind": "V",
+        "visible_on_arraylist": true,
+        "description": "Tracks target while flying, auto-swaps Elytra to Chestplate near enemy in air, and auto-smashes on impact.",
+        "settings": {
+          "auto_swap_elytra_to_chestplate": true,
+          "air_proximity_swap_distance_blocks": 5.0,
+          "require_looking_at_target": true,
+          "valid_targets": [
+            "Players",
+            "Mobs"
+          ],
+          "smart_dive_aim_assist": true,
+          "force_impact_mace_smash": true,
+          "swing_lock_while_gliding": true,
+          "chestplate_source": "Hotbar / Inventory Auto",
+          "min_dive_height_blocks": 3.5
+        }
+      },
+      "MaceCombat": {
+        "enabled": true,
+        "keybind": "NONE",
+        "visible_on_arraylist": true,
+        "description": "Core 1.21.11 Mace utility for Wind Charges, smash timing, and damage calculation.",
+        "settings": {
+          "auto_wind_charge": true,
+          "smash_timing_assist": true,
+          "min_fall_blocks": 2.5,
+          "calculation_profile": "Auto (Breach / Density)",
+          "wind_burst_relaunch_helper": true,
+          "fall_damage_breakpoint_hud": true
+        }
+      },
+      "StunSlam": {
+        "enabled": true,
+        "keybind": "G",
+        "visible_on_arraylist": true,
+        "description": "Executes Axe shield-break into instant Mace slam in a single drop (Normal & Elytra modes).",
+        "settings": {
+          "normal_stun_slam": true,
+          "elytra_stun_slam": true,
+          "shield_check_raycast": true,
+          "preferred_axe_slot": 2,
+          "preferred_mace_slot": 1,
+          "auto_slot_restore": true
+        }
+      },
+      "SpearCombat": {
+        "enabled": true,
+        "keybind": "R",
+        "visible_on_arraylist": true,
+        "description": "1.21.11 Spear combat suite featuring Quick Lunge dash and momentum charge chaining.",
+        "settings": {
+          "quick_lunge_assist": true,
+          "momentum_jab_to_charge_chainer": true,
+          "keep_sweetspot_spacing": true,
+          "min_range_blocks": 2.0,
+          "max_range_blocks": 4.5,
+          "lunge_enchant_level": "Level III",
+          "auto_eat_for_lunge_hunger": true,
+          "min_hunger_threshold": 6
+        }
+      },
+      "AutoShieldBreaker": {
+        "enabled": true,
+        "keybind": "NONE",
+        "visible_on_arraylist": true,
+        "description": "Automatically switches to Axe when enemy raises shield, disables it, and snaps back to held weapon.",
+        "settings": {
+          "instant_weapon_snap_back": true,
+          "preferred_axe_slot": 2,
+          "reaction_delay_ticks": 0,
+          "only_while_holding_melee": true
+        }
+      },
+      "CrystalPvP": {
+        "enabled": true,
+        "keybind": "C",
+        "visible_on_arraylist": true,
+        "description": "Pro-grade Crystal and Respawn Anchor automation with obsidian surround protection.",
+        "settings": {
+          "auto_crystal_place_and_break": true,
+          "crystal_place_delay_ticks": 0,
+          "crystal_break_delay_ticks": 0,
+          "auto_anchor_detonate": true,
+          "anchor_safe_block_place": true,
+          "surround_auto_feet_obsidian": true,
+          "anti_city_patch": true,
+          "max_self_damage_limit": 8.0,
+          "min_target_damage": 6.0,
+          "predictive_damage_hud": true
+        }
+      }
+    },
+    "MACROS_AND_UTILITY": {
+      "AutoPotionMacro": {
+        "enabled": true,
+        "keybind": "X",
+        "visible_on_arraylist": true,
+        "description": "One-button emergency pre-pot macro that uses selected buffs without opening inventory.",
+        "settings": {
+          "skip_already_active_buffs": true,
+          "min_remaining_duration_seconds": 5,
+          "pull_from_inventory_and_hotbar": true,
+          "auto_return_to_weapon_slot": true,
+          "potion_selection_gui": {
+            "strength_ii": true,
+            "speed_ii": true,
+            "fire_resistance": true,
+            "regeneration_ii": false,
+            "instant_health_ii": true,
+            "turtle_master": false
+          }
+        }
+      },
+      "AutoTotem": {
+        "enabled": true,
+        "keybind": "NONE",
+        "visible_on_arraylist": true,
+        "description": "Instant offhand Totem of Undying replacement with lethal damage prediction.",
+        "settings": {
+          "trigger_mode": "Lethal Predict + HP Threshold",
+          "hp_threshold_hearts": 4.0,
+          "offhand_fallback_item": "Totem",
+          "available_fallbacks": [
+            "Totem",
+            "Golden Apple",
+            "Shield"
+          ],
+          "scan_hotbar_if_inventory_empty": true,
+          "packet_instant_swap": true
+        }
+      },
+      "FastPlace": {
+        "enabled": true,
+        "keybind": "NONE",
+        "visible_on_arraylist": false,
+        "description": "Removes the 4-tick vanilla delay for high-speed block placement.",
+        "settings": {
+          "place_delay_ticks": 0,
+          "obsidian_and_blocks_only": false
+        }
+      },
+      "FastEXP": {
+        "enabled": true,
+        "keybind": "NONE",
+        "visible_on_arraylist": false,
+        "description": "Throws Experience Bottles at maximum tick speed for instant armor mending.",
+        "settings": {
+          "throw_delay_ticks": 0,
+          "foot_pitch_assist": false
+        }
+      }
+    },
+    "RENDER": {
+      "PlayerESP": {
+        "enabled": true,
+        "keybind": "NONE",
+        "visible_on_arraylist": true,
+        "description": "Renders player bounding boxes, nametags, armor durability, and live health indicators.",
+        "settings": {
+          "box_style": "2D Corner + 3D Fill",
+          "show_health_bar": true,
+          "show_exact_hp_number": true,
+          "show_armor_and_held_item": true,
+          "show_distance": true,
+          "max_render_distance_blocks": 128,
+          "color_mode": "Health Dynamic"
+        }
+      },
+      "ChestESP": {
+        "enabled": true,
+        "keybind": "NONE",
+        "visible_on_arraylist": false,
+        "description": "Highlights storage containers through walls with color-coded outlines.",
+        "settings": {
+          "chests_and_barrels": true,
+          "shulker_boxes": true,
+          "ender_chests": true,
+          "spawners_and_trial_vaults": true,
+          "outline_opacity": 0.85
+        }
+      },
+      "FreeLook": {
+        "enabled": true,
+        "keybind": "LEFT_ALT",
+        "visible_on_arraylist": false,
+        "description": "Detached 360-degree third-person camera rotation without altering player movement direction.",
+        "settings": {
+          "hold_to_activate": true,
+          "camera_distance_blocks": 4.5,
+          "sensitivity_multiplier": 1.0,
+          "invert_pitch": false
+        }
+      },
+      "XRay": {
+        "enabled": false,
+        "keybind": "Z",
+        "visible_on_arraylist": true,
+        "description": "Renders valuable ores and structures through stone with customizable block opacity.",
+        "settings": {
+          "world_opacity": 0.3,
+          "cave_finder_mode": false,
+          "highlighted_blocks": [
+            "diamond_ore",
+            "deepslate_diamond_ore",
+            "ancient_debris",
+            "emerald_ore",
+            "gold_ore",
+            "spawner",
+            "trial_spawner",
+            "vault"
+          ]
+        }
+      },
+      "Fullbright": {
+        "enabled": true,
+        "keybind": "B",
+        "visible_on_arraylist": false,
+        "description": "Sets world ambient lighting to maximum visibility in caves and night time.",
+        "settings": {
+          "mode": "Lightmap Override",
+          "gamma_level": 16.0
+        }
+      }
+    },
+    "MOVEMENT": {
+      "AutoSprint": {
+        "enabled": true,
+        "keybind": "NONE",
+        "visible_on_arraylist": false,
+        "description": "Automatically keeps the player sprinting in all movement directions.",
+        "settings": {
+          "omni_directional_sprint": true,
+          "keep_sprint_on_attack": true
+        }
+      }
+    },
+    "PERFORMANCE": {
+      "FPSBooster": {
+        "enabled": true,
+        "keybind": "NONE",
+        "visible_on_arraylist": false,
+        "description": "Optimizes rendering, math calculations, particle limits, and memory management.",
+        "settings": {
+          "entity_culling_behind_walls": true,
+          "max_entity_render_distance": 64,
+          "fast_math_trig_lookup_tables": true,
+          "jvm_gc_microstutter_governor": true,
+          "no_render_filters": {
+            "limit_crystal_explosion_particles": true,
+            "disable_fire_overlay": true,
+            "disable_weather_and_rain": true,
+            "disable_blindness_and_nausea": true,
+            "disable_portal_overlay": true,
+            "limit_dropped_item_models": true
+          }
+        }
+      }
+    }
+  }
+}
