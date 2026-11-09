@@ -1,4 +1,4 @@
-package com.shadowclient;
+package com.shadowclient.ui;
 
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.Screen;
